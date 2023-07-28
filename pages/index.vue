@@ -1,14 +1,19 @@
 <template>
   <div class="w-96 h-48 bg-white rounded-lg flex justify-center items-center">
     <h1
-      class="text-5xl p-4 font-bold from-purple-600 via-pink-600 to-blue-600 bg-gradient-to-r bg-clip-text text-transparent"
+      class="text-2xl p-4 font-bold from-purple-600 via-pink-600 to-blue-600 bg-gradient-to-r bg-clip-text text-transparent"
     >
       {{name}}
+      <hr class="border-b border-green-500 my-2">
+      following is the composable value:
+        {{composeableVal}}
     </h1>
   </div>
 </template>
 
 <script setup>
+const {showAlert}=useUtilis()
+const composeableVal=ref('')
 
 const { status, data, getSession, signOut } = useAuth();
 getSession().then((session) => {
@@ -25,7 +30,9 @@ import {setNameStore} from '../store/setNameStore.ts'
 
 const store=setNameStore()
 onMounted(() => {
-  store.setName('Home set Via Pinia Store')
+    store.setName('Home set Via Pinia Store')
+    composeableVal.value=showAlert()
+  
 })
 const name=ref('')
 
